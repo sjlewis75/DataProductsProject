@@ -1,0 +1,32 @@
+---
+title: "Developing Data Products Project"
+author: "Saundra Lewis"
+date: "March 25, 2016"
+output: html_document
+runtime: shiny
+---
+###Summary
+#####For my Developing Data Products course project I developed an shiny app that utilizes the women dataset.
+
+###Application Purpose
+#####The purpose of this application is to calculate the standard Body Mass Index (BMI) for women for each height (in inches) the user chooses from the available heights in the women dataset. After choosing a height, the application will display the associated height and weight from the dataset along with the calculated BMI.
+
+###Approach
+#####To develop this application, the height from the women dataset needed to be extracted and made available via a drop down list. The code to accomplish this is in the server.R.
+```{r do_dropdown, eval=FALSE}
+#load the dataset
+data(women)
+#extract the height data
+height_list<-women$height
+#Drop-down selection list for height
+selectInput("height", "Height Choice", as.list(height_list))
+```
+#####The list is defaulted to the first element in the drop down list and the associated height, weight and BMI are displayed. As the user selects different values from the drop down list, the associated height, weight and calculated BMI are displayed. BMI is calculated using a standard algorithm.
+```{r calc_bmi, eval = FALSE}
+dat<- subset(women, height == input$height)
+bmi<-(dat$weight * 0.45)/((dat$height * .025)^2)
+```
+###Viewing and Running the App
+#####The shiny application can be run from here [shiny app](https://sjlewis75.shinyapps.io/DataProductsProject/)
+#####To reproduce this application locally you will need to install all of the relevant packages and run the ui.R and server.R files located in the github repository.
+
